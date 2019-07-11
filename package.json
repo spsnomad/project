@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-
     "@polymer/iron-ajax": "^3.0.1",
     "@polymer/paper-button": "^3.0.1",
     "@polymer/paper-dialog": "^3.0.1",
@@ -24,6 +23,7 @@
     "express": "^4.17.1",
     "http": "0.0.0",
     "nforce": "^1.12.2",
+    "polymer-cli": "^1.9.11",
     "socket.io": "^2.2.0",
     "web-animations-js": "^2.3.1"
   }
