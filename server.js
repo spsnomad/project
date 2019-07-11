@@ -19,7 +19,7 @@ const socket = io.on('connection', function(socket) {
 
 // Platform Events
 conn.authenticate({ username: process.env.SF_USERNAME, 
-process.env.SF_PASSWORD}, function(err, oauth) {
+password: process.env.SF_PASSWORD}, function(err, oauth) {
 
   if(err) return console.log(err);
 
