@@ -1,0 +1,294 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 10px;
+  font-Family: 'Lato', Sans-Serif;
+  font-Size: 16px;
+  line-height: 1.6;
+}
+
+
+header {
+  height: 200px;
+  background: linear-gradient(to right, rgba(140, 161, 211, 0.6), rgba(48, 55, 103, 1)), url('images/bckgrnd1.jpg');
+  background-position: center;
+  background-size: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 70%)
+}
+
+svg {
+  position: absolute;
+  top: 4vh;
+  left: 3vw;
+}
+
+.progress-bar {
+  width: 20vw;
+  position: absolute;
+  right: 7vw;
+  top: 4vh;
+  color: #afb0c0;
+}
+
+.empty-bar {
+  width: 20vw;
+  height: 3vh;
+  border: 8px solid #24294a;
+  border-radius: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fill-bar {
+  width: 5vw;
+  height: 3vh;
+  background: linear-gradient(to right, #4787fb, #67dffd);
+  border-radius: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.stats {
+  position: absolute;
+  top: 3vh;
+  left: 2vw;
+}
+
+.progress-bar .highlight {
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-right: 1vw;
+}
+
+.btn {
+  cursor: pointer;
+  position: absolute;
+  top: 10vh;
+  left: 2vw;
+  height: 3vh;
+  width: 10vw;
+  text-align: center;
+  background: whitesmoke;
+  color: #24294a;
+  font-size: 1em;
+  border-radius: 15px;
+}
+
+.btn:hover, .btn:focus {
+  background:  rgb(218, 214, 214);
+}
+
+.btn:active {
+  box-shadow: 0 1px 2px rgba(0,0,0, 0.5) inset;
+}
+
+
+main {
+  background: #f8f7f9;
+  height: 83.5vh;
+  margin-top: -60px;
+}
+
+.kanban-container {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(30vw, 1fr));
+  grid-column-gap: 1em;
+  padding: 70px 25px 25px;
+
+}
+
+.col {
+  background-color: rgb(102, 118, 154);
+  border-radius: 5px;
+  height: 75vh;
+  color: whitesmoke;
+  margin-bottom: 5px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.card {
+  background-color: white;
+  height: 10vh;
+  color: gray;
+  border-radius: 5px;
+  margin: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 5px 5px 10px 4px rgba(0,0,0,0.5);
+  transition: height .5s;
+}
+
+.card:hover {
+  height: auto;
+}
+
+.taskDescription {
+  font-Family: 'Arvo', Serif;
+  font-size: .8em;
+  margin: 10px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0 linear 300ms, opacity .7s .5s ; 
+}
+
+.card:hover .taskDescription{
+  visibility: visible;
+  opacity: 1; 
+}
+
+h3 {
+  font-size: 1.15em;
+  font-weight: bold;
+}
+
+.title, .date {
+  text-align: left;
+}
+
+.name {
+  color: white;
+  display: inline-block;
+  padding: 3px 15px;
+  min-width: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .7em;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  font-Family: 'Arvo', Serif;
+  border-radius: 2px;
+}
+
+.turquoise {
+background: #07BEB8;
+}
+
+.orange {
+background: #F3CA40;
+}
+
+.green {
+background: #21cf5b
+}
+
+.blue {
+background: hsl(239, 82%, 44%)
+}
+
+@media only screen and (max-width: 680px) {
+
+h2 {
+ font-size: 1em;
+}
+
+h3 {
+ font-size: .8em;
+}
+
+.name {
+ font-size: .6em;
+}
+
+.date, .stats, .btn {
+ font-size: .7em;
+}
+
+}
+
+@media only screen and (max-width: 500px) {
+
+.stats, .btn {
+  font-size: .6em;
+}
+
+.btn {
+top: 8vh;
+width: 15vw;
+}
+
+}
+
+/* Modal Styling */
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: left;
+  background: rgba(0,0,0, .9);
+  transition: opacity .25s ease;
+}
+
+.modal__inner {
+  transition: top .25s ease;
+  position: absolute;
+  top: -20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  margin: auto;
+  overflow: auto;
+  background: #fff;
+  border-radius: 5px;
+  padding: 1em 2em;
+  height: 50%;
+}
+
+.modal__close {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  width: 1.1em;
+  height: 1.1em;
+  cursor: pointer;
+}
+
+.modal__close:after,
+.modal__close:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 1.5em;
+  background: #ccc;
+  display: block;
+  transform: rotate(45deg);
+  left: 50%;
+  margin: -3px 0 0 -1px;
+  top: 0;
+}
+
+.modal__close:hover:after,
+.modal__close:hover:before {
+  background: #aaa;
+}
+
+.modal__close:before {
+  transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 768px) {
+    
+  .modal__inner {
+    width: 90%;
+    height: 90%;
+    box-sizing: border-box;
+  }
+}

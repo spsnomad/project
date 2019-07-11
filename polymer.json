@@ -1,0 +1,23 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/main-app.js",
+  "sources": [
+    "images/**/*",
+    "src/**.js",
+    "package.json",
+    "**.css"
+  ],
+  "extraDependencies": [
+    "node_modules/@webcomponents/webcomponentsjs/*.js",
+    "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js",
+    "node_modules/web-animations-js/web-animations-next-lite.min.js"
+  ],
+  "moduleResolution": "node",
+  "npm": true,
+  "builds": [
+    {
+      "preset": "es6-unbundled"
+    }
+  ]
+}
