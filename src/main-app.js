@@ -248,7 +248,7 @@ class MainApp extends PolymerElement {
   deleteTask(event) {
     this.set('body',{});
     this.id = event.detail.id;
-    console.log("Deleting " + this.id )
+    //console.log("Deleting " + this.id )
     this.$.dataAjax.method = "DELETE";
   }
 

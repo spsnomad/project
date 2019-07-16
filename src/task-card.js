@@ -141,7 +141,7 @@ class TaskCard extends PolymerElement {
       id: id,
       // status__c: temp
     }
-    console.log("About to Delete ID:" + id );
+    //console.log("About to Delete ID:" + id );
     const newEvent = new CustomEvent('delete task', { detail: detail,  bubbles: true, composed: true });
     this.dispatchEvent(newEvent);
 
