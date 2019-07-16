@@ -1,4 +1,5 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+import '@polymer/paper-button/paper-button.js';
 
 class TaskCard extends PolymerElement {
   static get template() {
@@ -95,6 +96,7 @@ class TaskCard extends PolymerElement {
         }
       </style>
       <div class="card">
+        
         <div class$="name {{color}}">[[user]]</div>
         <h3 class="title">[[title]]</h3>
         <p class="date">[[date]]</p>
@@ -107,6 +109,7 @@ class TaskCard extends PolymerElement {
                 <paper-item>Complete</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
+            <br /><paper-button raised on-click="handleDelete">Delete</paper-button>
         </section>
       </div>
     `;
@@ -130,6 +133,18 @@ class TaskCard extends PolymerElement {
     }
     const newEvent = new CustomEvent('status change', { detail: detail,  bubbles: true, composed: true });
     this.dispatchEvent(newEvent);
+  }
+
+  handleDelete(event) {
+    const id = this.id;
+    const detail = {
+      id: id,
+      // status__c: temp
+    }
+    console.log("About to Delete ID:" + id );
+    const newEvent = new CustomEvent('delete task', { detail: detail,  bubbles: true, composed: true });
+    this.dispatchEvent(newEvent);
+
   }
 
   constructor() {

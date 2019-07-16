@@ -48,4 +48,19 @@ module.exports = function (app) {
       }
     });
   });
+
+  app.delete('/api/tasks/:id', function(req, res) {
+    const record = nforce.createSObject('Kanban__c');
+    record.set('Id', req.params.id);
+    // record.set('Status__c', req.body.status__c);
+  
+    conn.delete({ sobject: record }, (err, data) => {
+      if (!err) {
+        res.json({ success: true });
+      } else {
+        res.json(err);
+      }
+    });
+  });
+
 };
