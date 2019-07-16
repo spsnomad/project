@@ -52,7 +52,7 @@ class MainApp extends PolymerElement {
         }
 
         .fill-bar {
-          width: 5vw;
+          width: 0vw;
           height: 3vh;
           background: linear-gradient(to right, #4787fb, #67dffd);
           border-radius: 15px;
@@ -196,10 +196,10 @@ class MainApp extends PolymerElement {
 
           <div class="progress-bar">
               <div class="empty-bar"></div>
-              <div class="fill-bar"></div>
+              <div class="fill-bar" style="width:[[barWidth]]vw"></div>
               <div class="stats">
-                  <p><span class="highlight">25%</span> complete</p>
-                  <p>1 of 4 tasks complete</p>
+                  <p><span class="highlight">[[percentCompleted]]%</span> complete</p>
+                  <p>[[tasksCompleted]] of [[taskLength]] tasks complete</p>
               </div>
               <button class='btn' on-click="openModal">New Task</button>
           </div>
@@ -244,6 +244,11 @@ class MainApp extends PolymerElement {
     this.$.dataAjax.method = "PUT";
   }
 
+  deleteTask(event) {
+    this.id = event.detail.id;
+    this.$.dataAjax.method = "DELETE";
+  }
+
   getAll() {
     this.id = "";
     this.$.dataAjax.method = "GET";
@@ -256,6 +261,10 @@ class MainApp extends PolymerElement {
     } else {
       this.getAll();
     }
+    this.set('taskLength', this.tasks.length);
+    this.set('tasksCompleted', this.tasks.filter(task => task.status__c==="Complete").length);
+    this.set('percentCompleted', (this.taskLength === 0) ? 0 : Math.round(this.tasksCompleted * 100/this.taskLength));
+    this.set('barWidth', Math.round(this.percentCompleted*20/100));
   }
 
   static get properties() {
@@ -271,6 +280,10 @@ class MainApp extends PolymerElement {
     super();
     this.url = "/api/tasks";
     this.id = "";
+    this.taskLength=0;
+    this.tasksCompleted=0;
+    this.percentCompleted=0;
+    this.barWidth = 0;
   }
 }
 
