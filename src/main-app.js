@@ -230,6 +230,11 @@ class MainApp extends PolymerElement {
     this.socket.on('task updated', (data) => {
       this.getAll()
     });
+
+    this.socket.on('task deleted', (data) => {
+      console.log("Received emitted task delete");
+      this.getAll();
+    })
   }
 
   addTask(event) {

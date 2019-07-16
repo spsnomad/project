@@ -44,6 +44,14 @@ password: process.env.SF_PASSWORD}, function(err, oauth) {
     socket.emit('task updated', data);
   });
 
+  const taskDeleted = client.subscribe({ topic: 'Task_Deleted__e', isEvent: true, replayId: -1 });
+
+  taskDeleted.on('data', function (data) {
+    console.log('Receiving Deleted Data');
+    console.log(data);
+    socket.emit('task deleted', data);
+  });
+
 });
 
 
