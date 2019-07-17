@@ -77,6 +77,14 @@ class TaskCard extends PolymerElement {
           background: hsl(239, 82%, 44%)
         }
 
+        .red {
+          background:  hsl(0, 100%, 49%)
+        }
+
+        .yellow {
+          background:  #F3CA40
+        }
+
         @media only screen and (max-width: 680px) {
           h2 {
            font-size: 1em;
@@ -109,6 +117,17 @@ class TaskCard extends PolymerElement {
                 <paper-item>Complete</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
+            <paper-dropdown-menu on-iron-select="changeColor" label="Color" value="[[color]]">
+            <paper-listbox slot="dropdown-content" class="dropdown-content">
+              <paper-item>turquoise</paper-item>
+              <paper-item>orange</paper-item>
+              <paper-item>green</paper-item>
+              <paper-item>blue</paper-item>
+              <paper-item>red</paper-item>
+              <paper-item>yellow</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
             <br /><paper-button raised on-click="handleDelete">Delete</paper-button>
         </section>
       </div>
@@ -129,9 +148,22 @@ class TaskCard extends PolymerElement {
     const id = this.id;
     const detail = {
       id: id,
-      status__c: temp
+      status__c: temp,
+      color__c: this.color__c
     }
     const newEvent = new CustomEvent('status change', { detail: detail,  bubbles: true, composed: true });
+    this.dispatchEvent(newEvent);
+  }
+
+  changeColor(event) {
+    const temp = event.target.selectedItem.innerText;
+    const id = this.id;
+    const detail = {
+      id: id,
+      status__c: this.status__c,
+      color__c: temp
+    }
+    const newEvent = new CustomEvent('color change', { detail: detail,  bubbles: true, composed: true });
     this.dispatchEvent(newEvent);
   }
 

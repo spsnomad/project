@@ -190,6 +190,15 @@ background: #21cf5b
 background: hsl(239, 82%, 44%)
 }
 
+.red {
+  background: hsl(0, 100%, 49%)
+}
+
+.yellow {
+    background: #F3CA40
+}
+
+
 @media only screen and (max-width: 680px) {
 
 h2 {
