@@ -3,6 +3,9 @@ import '@polymer/paper-dialog/paper-dialog.js';
 import './modal-contents.js';
 import './kanban-container.js';
 import '@polymer/iron-ajax/iron-ajax.js';
+import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
+import '@polymer/paper-item/paper-item.js';
+import '@polymer/paper-listbox/paper-listbox.js';
 
 class MainApp extends PolymerElement {
   static get template() {
@@ -194,6 +197,8 @@ class MainApp extends PolymerElement {
               <image href='./images/kanban.svg' width='10vw' height='10vh' />
           </svg>
 
+
+
           <div class="progress-bar">
               <div class="empty-bar"></div>
               <div class="fill-bar" style="width:[[barWidth]]vw"></div>
@@ -205,8 +210,16 @@ class MainApp extends PolymerElement {
           </div>
       </header>
 
+      <paper-dropdown-menu on-iron-select="changeSort" label="Date Sort" value="[[sort]]">
+      <paper-listbox slot="dropdown-content" class="dropdown-content">
+        <paper-item>Ascending</paper-item>
+        <paper-item>Descending</paper-item>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
+
       <main class='board'>
-          <kanban-container tasks$="{{tasks}}" id="kanban"></kanban-container>
+          <kanban-container tasks$="{{tasks}}" sort= "{{sort}}" id="kanban"></kanban-container>
       </main>
     `;
   }
@@ -257,6 +270,10 @@ class MainApp extends PolymerElement {
     this.$.dataAjax.method = "PUT";
   }
 
+  changeSort(event) {
+    const temp = event.target.selectedItem.innerText;
+    this.set('sort', temp);
+  }
 
   deleteTask(event) {
     this.set('body',{});
@@ -300,6 +317,7 @@ class MainApp extends PolymerElement {
     this.tasksCompleted=0;
     this.percentCompleted=0;
     this.barWidth = 0;
+    this.sort = "Ascending";
   }
 }
 

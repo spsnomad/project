@@ -1,9 +1,5 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/polymer/lib/elements/dom-repeat.js";
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '@polymer/paper-item/paper-item.js';
-import '@polymer/paper-listbox/paper-listbox.js';
-
 import "./status-col.js";
 import "./task-card.js";
 
@@ -21,7 +17,7 @@ class KanbanContainer extends PolymerElement {
       </style>
       <div class="kanban-container">
         <status-col heading="Backlog">
-          <template is="dom-repeat" items="{{tasks}}" observe="status" filter="isBacklog">
+          <template is="dom-repeat" items="{{tasks}}"  sort="{{sortMethod(sort)}}" observe="status" filter="isBacklog">
           <task-card
             id="[[item.id]]"
             user="[[item.assignedname__c]]"
@@ -35,7 +31,7 @@ class KanbanContainer extends PolymerElement {
         </status-col>
 
         <status-col heading="In Progress">
-          <template is="dom-repeat" items="{{tasks}}" observe="status" filter="isInProgress">
+          <template is="dom-repeat" items="{{tasks}}" sort="{{sortMethod(sort)}}" observe="status" filter="isInProgress">
           <task-card
             id="[[item.id]]"
             user="[[item.assignedname__c]]"
@@ -49,7 +45,7 @@ class KanbanContainer extends PolymerElement {
         </status-col>
 
         <status-col heading="Complete">
-          <template is="dom-repeat" items="{{tasks}}" observe="status" filter="isComplete">
+          <template is="dom-repeat" items="{{tasks}}"  observe="status" filter="isComplete" sort="{{sortMethod(sort)}}">
           <task-card
             id="[[item.id]]"
             user="[[item.assignedname__c]]"
@@ -67,9 +63,29 @@ class KanbanContainer extends PolymerElement {
 
   static get properties() {
     return {
-      tasks: Array
+      tasks: Array,
+      sort: String
     }
   }
+
+  sortMethod(val) {
+    if (val === "Ascending") {
+      return function (a, b) {
+        const date1 = new Date(a.duedate__c);
+        const date2 = new Date(b.duedate__c);
+        if (date1.getTime() === date2.getTime()) return 0;
+        return (date1.getTime() > date2.getTime()) ? 1 : -1;
+      };
+    } else {
+      return function (a, b) {
+        const date1 = new Date(a.duedate__c);
+        const date2 = new Date(b.duedate__c);
+        if (date1.getTime() === date2.getTime()) return 0;
+        return (date1.getTime() < date2.getTime()) ? 1 : -1;
+      };
+    }
+  }
+  
 
   isBacklog(item) {
     return item.status__c === "Backlog";
